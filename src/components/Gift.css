@@ -1,0 +1,15 @@
+.gift {
+    display: block;
+    text-decoration: none;
+  background: #E77493;
+  padding: 24px 12px;
+  color: #FFF;
+  margin: 12px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
+}
+
+.gift .title {
+  font-weight: bold;
+  font-size: 18px;
+}

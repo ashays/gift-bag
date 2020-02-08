@@ -1,38 +1,78 @@
-.App {
+*, *:before, *:after {
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+  background: #F7F8FA;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: visibility 0.5s;
+}
+
+.slide.closed {
+  visibility: hidden;
+}
+
+.overlay {
+  background: #4A4A4A;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.open .overlay {
+  opacity: .75;
+}
+
+.closed .overlay {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.drawer {
+  position: absolute;
+  bottom: 0px;
+  min-height: 200px;
+  width: 100%;
+  background: #FFF;
+  border-radius: 30px 30px 0 0;
+  padding: 24px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
+  transition: .5s all;
+}
+
+.closed .drawer {
+  transform: translateY(100%);
+  visibility: hidden;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+}
+
+.option {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.icon {
+  height: 72px;
+  width: 72px;
+  background: #4A2B92;
+  border-radius: 30px;
+  margin-bottom: 6px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+main {
+  padding: 24px;
 }
