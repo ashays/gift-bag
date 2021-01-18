@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import Results from "./components/Results";
+import Main from "./components/Main";
 import Sheet from "./components/Sheet";
 
 class App extends React.Component {
@@ -13,15 +13,18 @@ class App extends React.Component {
   }
   
   closeSheet() {
-    let newState = this.state;
-    newState.isSheetOpen = false;
-    this.setState(newState);
+    this.setState({isSheetOpen: false});
   }
 
   render() {
     return (
       <div>
-        <Results />
+        <header>
+          <img src={process.env.PUBLIC_URL + '/logo.svg'} />
+          <div className="app-name">Pi&ntilde;ata</div>
+          <div className="subtitle">Gift Guide</div>
+        </header>
+        <Main />
         <Sheet isOpen={this.state.isSheetOpen} close={this.closeSheet.bind(this)} />
       </div>
     );
