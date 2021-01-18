@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "38f54c52dc94561fe51172ca49b00bd8",
+    "revision": "93100ef51cee609e3dc634a77b31017e",
     "url": "/gift-bag/index.html"
   },
   {
-    "revision": "3a8031c231c5edef3962",
-    "url": "/gift-bag/static/css/main.8631b1af.chunk.css"
+    "revision": "6096129c9d824f491b99",
+    "url": "/gift-bag/static/css/main.fa040242.chunk.css"
   },
   {
     "revision": "b68d5bd4159b35ba9629",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/gift-bag/static/js/2.ca21304c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3a8031c231c5edef3962",
-    "url": "/gift-bag/static/js/main.b1795c68.chunk.js"
+    "revision": "6096129c9d824f491b99",
+    "url": "/gift-bag/static/js/main.4b032c60.chunk.js"
   },
   {
     "revision": "c38fa0aa3f509d7bb560",
