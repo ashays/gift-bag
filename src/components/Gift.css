@@ -1,28 +1,25 @@
 .gift {
     display: block;
     text-decoration: none;
-    position: relative;
-    background: #E77493;
-    padding: 24px 12px;
+    background: #4450A4;
+    padding: 18px;
     color: #FFF;
     margin: 12px 0;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
+    border-radius: 15px;
 }
 
 .gift .title {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1.5em;
+    margin-bottom: 6px;
+    margin-right: 24px;
 }
 
 .gift .save svg {
     fill: #fff;
+    height: 32px;
 }
 
 .gift .save {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 42px;
-    padding: 10px;
+    float: right;
 }
