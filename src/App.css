@@ -17,30 +17,3 @@ header {
   margin-bottom: 16px;
   font-size: 18px;
 }
-
-.group {
-  color: #fff;
-  padding: 16px;
-}
-
-.group:nth-of-type(4n) {
-  background: #456990;
-}
-
-.group:nth-of-type(4n+1) {
-  background: #EF767A;
-}
-
-.group:nth-of-type(4n+2) {
-  background: #4F518C;
-}
-
-.group:nth-of-type(4n+3) {
-  background: #49BEAA;
-}
-
-h2 {
-  margin: 8px 0;
-  text-align: center;
-  font-size: 18px;
-}
