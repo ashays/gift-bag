@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/gift-bag/static/css/main.fa040242.chunk.css",
-    "main.js": "/gift-bag/static/js/main.4b032c60.chunk.js",
-    "main.js.map": "/gift-bag/static/js/main.4b032c60.chunk.js.map",
+    "main.css": "/gift-bag/static/css/main.1f689891.chunk.css",
+    "main.js": "/gift-bag/static/js/main.a88c4733.chunk.js",
+    "main.js.map": "/gift-bag/static/js/main.a88c4733.chunk.js.map",
     "runtime-main.js": "/gift-bag/static/js/runtime-main.f946e2e4.js",
     "runtime-main.js.map": "/gift-bag/static/js/runtime-main.f946e2e4.js.map",
     "static/js/2.ca21304c.chunk.js": "/gift-bag/static/js/2.ca21304c.chunk.js",
     "static/js/2.ca21304c.chunk.js.map": "/gift-bag/static/js/2.ca21304c.chunk.js.map",
     "index.html": "/gift-bag/index.html",
-    "precache-manifest.0fe6a0c262f4cc83a70106348de1af52.js": "/gift-bag/precache-manifest.0fe6a0c262f4cc83a70106348de1af52.js",
+    "precache-manifest.f470e2978eeab64fb87e77264b961ac3.js": "/gift-bag/precache-manifest.f470e2978eeab64fb87e77264b961ac3.js",
     "service-worker.js": "/gift-bag/service-worker.js",
-    "static/css/main.fa040242.chunk.css.map": "/gift-bag/static/css/main.fa040242.chunk.css.map",
+    "static/css/main.1f689891.chunk.css.map": "/gift-bag/static/css/main.1f689891.chunk.css.map",
     "static/js/2.ca21304c.chunk.js.LICENSE.txt": "/gift-bag/static/js/2.ca21304c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f946e2e4.js",
     "static/js/2.ca21304c.chunk.js",
-    "static/css/main.fa040242.chunk.css",
-    "static/js/main.4b032c60.chunk.js"
+    "static/css/main.1f689891.chunk.css",
+    "static/js/main.a88c4733.chunk.js"
   ]
 }
