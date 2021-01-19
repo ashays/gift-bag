@@ -1,26 +1,45 @@
 .group {
     color: #fff;
-    padding: 16px;
-  }
+    padding: 32px 16px;
+    text-align: center;
+}
   
-  .group:nth-of-type(4n) {
+.group:nth-of-type(5n) {
     background: #456990;
-  }
+}
   
-  .group:nth-of-type(4n+1) {
+.group:nth-of-type(5n+1) {
     background: #EF767A;
-  }
+}
   
-  .group:nth-of-type(4n+2) {
+.group:nth-of-type(5n+2) {
+    background: #EEB868;
+}
+  
+.group:nth-of-type(5n+3) {
     background: #4F518C;
-  }
-  
-  .group:nth-of-type(4n+3) {
+}
+
+.group:nth-of-type(5n+4) {
     background: #49BEAA;
-  }
-  
-  h2 {
+}
+
+h2 {
     margin: 8px 0;
     text-align: center;
     font-size: 18px;
-  }
+    font-weight: 600;
+}
+
+h2 strong {
+    font-weight: 800;
+}
+
+.group p {
+    text-align: left;
+}
+
+a.ghost-btn {
+    color: inherit;
+    opacity: .75;
+}
