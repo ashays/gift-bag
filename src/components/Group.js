@@ -10,7 +10,7 @@ class Group extends React.Component {
             <p>{this.props.description}</p>
             {this.props.gifts.map(function(gift, i) {
                 return (
-                    <Gift title={gift.name} link={gift.link} brand={gift.brand} price={gift.price} />
+                    <Gift title={gift.name} link={gift.link} brand={gift.brand} price={gift.price} key={i} />
                 );
             })}
             <a href="#" className="ghost-btn">See all {this.props.noGifts} gift ideas</a>
