@@ -17,3 +17,8 @@ header {
   margin-bottom: 16px;
   font-size: 18px;
 }
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(304px, 1fr));
+}
