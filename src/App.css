@@ -1,21 +1,16 @@
 header {
-  text-align: center;
-}
-
-.app-name {
-  color: #EF767A;
+  font-size: 24px;
+  display: flex;
   font-weight: 900;
   text-transform: uppercase;
-  margin-top: 16px;
-  font-size: 36px;
+  padding: 32px;
+  justify-content: space-between;
+  background: #EF767A;
+  color: #fff;
 }
 
 .subtitle {
-  color: #EF767A;
-  font-weight: 900;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  font-size: 18px;
+  opacity: .75;
 }
 
 main {

@@ -20,7 +20,6 @@ class App extends React.Component {
     return (
       <div>
         <header>
-          <img src={process.env.PUBLIC_URL + '/logo.svg'} />
           <div className="app-name">Pi&ntilde;ata</div>
           <div className="subtitle">Gift Guide</div>
         </header>
