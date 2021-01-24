@@ -1,31 +1,19 @@
 import React from 'react';
-
 import './App.css';
 
 import Main from "./components/Main";
 import Sheet from "./components/Sheet";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSheetOpen: true
-    };
-  }
-  
-  closeSheet() {
-    this.setState({isSheetOpen: false});
-  }
-
   render() {
     return (
-      <div className={this.state.isSheetOpen ? "sheet-open" : "sheet-closed"}>
+      <div>
         <header>
           <div className="app-name">Pi&ntilde;ata</div>
           <div className="subtitle">Gift Guide</div>
         </header>
         <Main />
-        <Sheet close={this.closeSheet.bind(this)} />
+        <Sheet />
       </div>
     );
   }
