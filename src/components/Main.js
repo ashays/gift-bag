@@ -6,6 +6,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.gifts = GIFTS;
+    this.currentGifts = this.getRandom(Object.values(this.gifts), 30);
   }
 
   shuffleArray(array) {
@@ -31,10 +32,9 @@ class Main extends React.Component {
   }
 
   render() {
-    let allGifts = this.getRandom(Object.values(this.gifts), 30);
     return (
       <main>
-        {allGifts.map(function(gift, i) {
+        {this.currentGifts.map(function(gift, i) {
           return (
             <Group key={i} name={gift.name} price={gift.price} link={gift.link} personas={gift.personas} category={gift.category} brand={gift.brand} />
           );

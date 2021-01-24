@@ -17,3 +17,8 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(304px, 1fr));
 }
+
+.sheet-open {
+  height: 100vh;
+  overflow: hidden;
+}
