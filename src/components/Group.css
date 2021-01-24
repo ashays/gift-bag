@@ -14,6 +14,7 @@
 
 .reference span, .about span { 
     margin: 0 4px;
+    text-transform: lowercase;
 }
 
 .reference span::before, .about span::before {
