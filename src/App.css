@@ -10,6 +10,11 @@ header {
   position: relative;
 }
 
+header a {
+  text-decoration: none;
+  color: #fff;
+}
+
 header::after {
   content: '';
   position: absolute;
