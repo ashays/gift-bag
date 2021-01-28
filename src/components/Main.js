@@ -1,12 +1,14 @@
 import React from 'react';
-import Group from "./Group";
+import './Main.css';
+import Gift from "./Gift";
 import {GIFTS} from '../data/gifts';
+import { Link } from 'react-router-dom';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.gifts = GIFTS;
-    this.currentGifts = this.getRandom(Object.entries(this.gifts), 30);
+    this.currentGifts = this.getRandom(Object.keys(this.gifts), 30);
   }
 
   shuffleArray(array) {
@@ -34,11 +36,11 @@ class Main extends React.Component {
   render() {
     return (
       <main>
-        {this.currentGifts.map((gift) => {
-          let giftId = gift[0];
-          gift = gift[1];
+        {this.currentGifts.map((giftId) => {
           return (
-            <Group key={giftId} name={gift.name} id={giftId} price={gift.price} link={gift.link} personas={gift.personas} category={gift.category} brand={gift.brand} />
+            <Link className="block" onClick={this.props.openGift.bind(this, giftId)} to={"/gift/" + giftId + "/" + encodeURIComponent(this.gifts[giftId].name.trim().replace(/\W+/g, '-').toLowerCase())} alt={this.gifts[giftId] && this.gifts[giftId].name} key={giftId}>
+              <Gift id={giftId} />
+            </Link>
           );
         })}
       </main>

@@ -1,31 +1,25 @@
 .gift {
-    display: block;
-    text-decoration: none;
-    margin: 8px 0;
-    background: rgb(51 51 51 / .15);
-    color: #fff;
-    padding: 16px;
-    text-align: left;
+    text-align: center;
 }
 
-.gift .title {
-    font-size: 18px;
-    font-weight: 600;
+.drawer .reference {
+    margin-top: 32px;
 }
 
-.brand, .price {
-    opacity: .75;
+.drawer .about {
+    margin-bottom: 32px;
 }
 
-.price {
-    margin-left: 8px;
+.reference span, .about span { 
+    margin: 0 4px;
+    text-transform: lowercase;
 }
 
-/* .gift .save svg {
-    fill: #fff;
-    height: 32px;
+.reference span::before, .about span::before {
+    content: '\00B7';
+    margin-right: 8px;
 }
 
-.gift .save {
-    float: right;
-} */
+.reference span:first-of-type::before, .about span:first-of-type::before {
+    content: '';
+}

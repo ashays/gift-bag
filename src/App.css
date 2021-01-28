@@ -29,8 +29,3 @@ header::after {
 .subtitle {
   opacity: .75;
 }
-
-main {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(304px, 1fr));
-}
