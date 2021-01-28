@@ -28,7 +28,12 @@ class Gift extends React.Component {
     }
 
     getPersona(gift) {
-        return PERSONAS[gift.personas[Math.floor(Math.random()*gift.personas.length)]].name;
+        if (gift && this.props.index) {
+            return PERSONAS[gift.personas[this.props.index % gift.personas.length]].name;
+        } else if (gift) {
+            return PERSONAS[gift.personas[Math.floor(Math.random()*gift.personas.length)]].name;
+        }
+        return undefined;
     }
     
     render() {

@@ -25,13 +25,13 @@ class App extends React.Component {
 
   componentDidMount() {
     setTimeout( () => {
-      this.setState({sheetOpen: true});
+      this.setState({sheetOpen: true, giftIndex: Math.floor(Math.random()*21)});
       document.body.style.overflow = "hidden";
     }, 300);
   }
 
-  openGift(id, e) {
-    this.setState({sheetOpen: true, currentGiftId: id});
+  openGift(id, giftIndex, e) {
+    this.setState({sheetOpen: true, currentGiftId: id, giftIndex});
     document.body.style.overflow = "hidden";
   }
 
@@ -39,6 +39,14 @@ class App extends React.Component {
     this.setState({sheetOpen: false});
     document.body.style.overflow = "visible";
     this.props.history.push('/');
+  }
+
+  getSheetColor() {
+    let colors = ["EF767A", "EEB868", "4F518C", "49BEAA", "456990"];
+    if (this.state.giftIndex !== undefined) {
+      return colors[(this.state.giftIndex + 1) % colors.length];
+    }
+    return colors[Math.floor(Math.random()*colors.length)];
   }
 
   render() {
@@ -49,10 +57,10 @@ class App extends React.Component {
           <div className="subtitle">Gift Guide</div>
         </header>
         <Main openGift={this.openGift} />
-        <Sheet isOpen={this.state.sheetOpen} close={this.closeSheet}>
+        <Sheet isOpen={this.state.sheetOpen} close={this.closeSheet} color={this.getSheetColor()}>
           <Switch>
             <Route path="/gift/:id/">
-              <Gift id={this.state.currentGiftId} expanded={true} />
+              <Gift id={this.state.currentGiftId} index={this.state.giftIndex} expanded={true} />
             </Route>
             <Route exact path="/">
               <h2>Looking for a gift?</h2>

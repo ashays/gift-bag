@@ -33,13 +33,17 @@ class Main extends React.Component {
     return result;
   }
 
+  getGiftURL(id, name) {
+    return ("/gift/" + id + "/" + encodeURIComponent(name.trim().replace(/\W+/g, '-').toLowerCase()));
+  }
+
   render() {
     return (
       <main>
-        {this.currentGifts.map((giftId) => {
+        {this.currentGifts.map((giftId, i) => {
           return (
-            <Link className="block" onClick={this.props.openGift.bind(this, giftId)} to={"/gift/" + giftId + "/" + encodeURIComponent(this.gifts[giftId].name.trim().replace(/\W+/g, '-').toLowerCase())} alt={this.gifts[giftId] && this.gifts[giftId].name} key={giftId}>
-              <Gift id={giftId} />
+            <Link className="block" onClick={this.props.openGift.bind(this, giftId, i)} to={this.getGiftURL(giftId, this.gifts[giftId].name)} key={giftId}>
+              <Gift id={giftId} index={i} />
             </Link>
           );
         })}
