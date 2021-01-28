@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router, 
   Switch,
   Route,
-  Link
+  Link,
+  withRouter
 } from "react-router-dom";
 import './App.css';
 
@@ -37,6 +38,7 @@ class App extends React.Component {
   closeSheet() {
     this.setState({sheetOpen: false});
     document.body.style.overflow = "visible";
+    this.props.history.push('/');
   }
 
   render() {
@@ -64,4 +66,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
