@@ -23,7 +23,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout( () => { this.setState({sheetOpen: true}); }, 300);
+    setTimeout( () => {
+      this.setState({sheetOpen: true});
+      document.body.style.overflow = "hidden";
+    }, 300);
   }
 
   openGift(id, e) {
