@@ -46,8 +46,13 @@ class Gift extends React.Component {
     getSiteName(url) {
         if (this.props.expanded) {
             let siteParts = new URL(this.state.gift.link).host.split('.');
-            return siteParts[siteParts.length - 2] + "." + siteParts[siteParts.length - 1];
+            let siteName = siteParts[siteParts.length - 2] + "." + siteParts[siteParts.length - 1];
+            if (siteName.length < 20) {
+                // TODO long site names show up on desktop
+                return siteName;
+            }
         }
+        return undefined;
     }
 
     checkingItOut() {
@@ -68,7 +73,7 @@ class Gift extends React.Component {
                     {this.state.gift.price && <span>{this.state.gift.price}</span>}
                     {!this.props.expanded && <span className="pseudolink">details</span>}
                 </div>
-                {this.props.expanded && !this.state.visited && this.state.gift.link && <a href={this.state.gift.link} target="_blank" className="button" rel="noopener noreferrer" onClick={this.checkingItOut}>Check it out at <span className="pseudolink">{this.getSiteName(this.state.gift.link)}</span></a>}
+                {this.props.expanded && !this.state.visited && this.state.gift.link && <a href={this.state.gift.link} target="_blank" className="button" rel="noopener noreferrer" onClick={this.checkingItOut}>Check it out {this.getSiteName(this.state.gift.link) && (<span>at <span className="pseudolink">{this.getSiteName(this.state.gift.link)}</span></span>)}</a>}
                 {this.props.expanded && this.state.visited &&
                     <div className="react" onClick={this.props.closeSheet}>
                         <Icon name="Thumbs Up" /><Icon name="Thumbs Down" />
