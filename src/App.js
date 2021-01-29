@@ -60,7 +60,7 @@ class App extends React.Component {
         <Sheet isOpen={this.state.sheetOpen} close={this.closeSheet} color={this.getSheetColor()}>
           <Switch>
             <Route path="/gift/:id/">
-              <Gift id={this.state.currentGiftId} index={this.state.giftIndex} expanded={true} />
+              <Gift id={this.state.currentGiftId} index={this.state.giftIndex} expanded={true} closeSheet={this.closeSheet} />
             </Route>
             <Route exact path="/">
               <h2>Looking for a gift?</h2>

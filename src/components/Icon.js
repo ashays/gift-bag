@@ -9,7 +9,8 @@ import food from '../icons/food.svg';
 import game from '../icons/game.svg';
 import plant from '../icons/plant.svg';
 import speaker from '../icons/speaker.svg';
-
+import thumbsup from '../icons/thumb-up.svg';
+import thumbsdown from '../icons/thumb-down.svg';
 
 class Icon extends React.Component {
     render() {
@@ -23,10 +24,12 @@ class Icon extends React.Component {
             "Something to eat": food,
             "Something to play": game,
             "Something to grow": plant,
-            "Something to jam out": speaker
+            "Something to jam out": speaker,
+            "Thumbs Up": thumbsup,
+            "Thumbs Down": thumbsdown
         }
         if (iconMap[this.props.name])
-            return <img src={iconMap[this.props.name]} alt="" />;
+            return <img src={iconMap[this.props.name]} alt={this.props.name} />;
         return <span></span>
     }
 }
