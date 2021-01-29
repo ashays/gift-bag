@@ -37,13 +37,15 @@ class Gift extends React.Component {
         }
         return undefined;
     }
-    
-    render() {
-        var site;
+
+    getSiteName(url) {
         if (this.props.expanded) {
             let siteParts = new URL(this.state.gift.link).host.split('.');
-            site = siteParts[siteParts.length - 2] + "." + siteParts[siteParts.length - 1];
+            return siteParts[siteParts.length - 2] + "." + siteParts[siteParts.length - 1];
         }
+    }
+    
+    render() {
         return (
             <div className="gift">
                 <Icon name={this.state.gift.category} />
@@ -57,7 +59,7 @@ class Gift extends React.Component {
                     {this.state.gift.price && <span>{this.state.gift.price}</span>}
                     {!this.props.expanded && <span className="pseudolink">details</span>}
                 </div>
-                {this.props.expanded && this.state.gift.link && <a href={this.state.gift.link} target="_blank" className="button" rel="noopener noreferrer">Check it out at <span className="pseudolink">{site}</span></a>}
+                {this.props.expanded && this.state.gift.link && <a href={this.state.gift.link} target="_blank" className="button" rel="noopener noreferrer">Check it out at <span className="pseudolink">{this.getSiteName(this.state.gift.link)}</span></a>}
             </div>
         );
     }
