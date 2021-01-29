@@ -1,8 +1,10 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
 import './Gift.css';
+import Icon from "./Icon";
 import {PERSONAS} from '../data/gifts';
 import {GIFTS} from '../data/gifts';
+
 
 class Gift extends React.Component {
     constructor(props) {
@@ -39,6 +41,7 @@ class Gift extends React.Component {
     render() {
         return (
             <div className="gift">
+                <Icon name={this.state.gift.category} />
                 <div className="reference">
                     {this.state.persona && <span>For the {this.state.persona}</span>}
                     {this.state.gift.category && <span>{this.state.gift.category}</span>}
@@ -47,6 +50,7 @@ class Gift extends React.Component {
                 <div className="about">
                     {this.state.gift.brand && <span>by {this.state.gift.brand}</span>}
                     {this.state.gift.price && <span>{this.state.gift.price}</span>}
+                    {!this.props.expanded && <span className="pseudolink">details</span>}
                 </div>
                 {this.props.expanded && this.state.gift.link && <a href={this.state.gift.link} target="_blank" className="button" rel="noopener noreferrer">Check it out</a>}
             </div>

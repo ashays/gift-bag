@@ -2,8 +2,17 @@
     text-align: center;
 }
 
-.drawer .reference {
+.gift img {
+    max-height: 42px;
+    margin: 8px 0;
+}
+
+.drawer .gift {
     margin-top: 32px;
+}
+
+.drawer img {
+    margin-bottom: 24px;
 }
 
 .drawer .about {
@@ -15,11 +24,15 @@
     text-transform: lowercase;
 }
 
-.reference span::before, .about span::before {
-    content: '\00B7';
-    margin-right: 8px;
+.pseudolink {
+    text-decoration: underline;
 }
 
-.reference span:first-of-type::before, .about span:first-of-type::before {
+.reference span::after, .about span::after {
+    content: '\00B7';
+    margin-left: 8px;
+}
+
+.reference span:last-of-type::after, .about span:last-of-type::after {
     content: '';
 }
