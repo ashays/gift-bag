@@ -26,7 +26,7 @@ class Icon extends React.Component {
             "Something to jam out": speaker
         }
         if (iconMap[this.props.name])
-            return <img src={iconMap[this.props.name]} />;
+            return <img src={iconMap[this.props.name]} alt="" />;
         return <span></span>
     }
 }
