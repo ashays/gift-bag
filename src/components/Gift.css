@@ -7,6 +7,10 @@
     margin: 8px 0;
 }
 
+.gift a {
+    color: #fff;
+}
+
 .drawer .gift {
     margin-top: 32px;
 }

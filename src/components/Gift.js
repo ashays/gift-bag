@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import './Gift.css';
 import Icon from "./Icon";
 import {PERSONAS, GIFTS} from '../data/data';
@@ -15,6 +15,7 @@ class Gift extends React.Component {
             visited: false
         };
         this.checkingItOut = this.checkingItOut.bind(this);
+        this.openPersonaPage = this.openPersonaPage.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -57,13 +58,30 @@ class Gift extends React.Component {
     checkingItOut() {
         this.setState({ visited: true });
     }
-    
+
+    getPersonaUrl(persona) {
+        return ("/" + encodeURIComponent(persona.trim().replace(/\W+/g, '-').toLowerCase()));
+    }
+
+    openPersonaPage() {
+        window.scrollTo(0, 0);
+        this.props.closeSheet();
+    }
+
+    getPersonaElement() {
+        if (this.props.expanded) {
+            return <Link onClick={this.openPersonaPage} to={this.getPersonaUrl(this.state.persona)}>{this.state.persona}</Link>
+        } else {
+            return this.state.persona;
+        }
+    }
+
     render() {
         return (
             <div className="gift">
                 <Icon name={this.state.gift.category} />
                 <div className="reference">
-                    {!this.props.hidePersona && this.state.persona && <span>For the {this.state.persona}</span>}
+                    {!this.props.hidePersona && this.state.persona && <span>For the {this.getPersonaElement()}</span>}
                     {this.state.gift.category && <span>{this.state.gift.category}</span>}
                 </div>
                 <h2>{this.state.gift.name}</h2>
