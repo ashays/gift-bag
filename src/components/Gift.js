@@ -63,7 +63,7 @@ class Gift extends React.Component {
             <div className="gift">
                 <Icon name={this.state.gift.category} />
                 <div className="reference">
-                    {this.state.persona && <span>For the {this.state.persona}</span>}
+                    {!this.props.hidePersona && this.state.persona && <span>For the {this.state.persona}</span>}
                     {this.state.gift.category && <span>{this.state.gift.category}</span>}
                 </div>
                 <h2>{this.state.gift.name}</h2>
