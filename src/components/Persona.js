@@ -7,14 +7,25 @@ import {PERSONAS, PERSONA_NAMES} from '../data/data';
 class Persona extends React.Component {
     constructor(props) {
         super(props);
-        let persona;
-        let param = props.match.params['persona'];
+        this.state = {
+            persona: this.getPersona(props.match.params['persona'])
+        };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params['persona'] !== prevProps.match.params['persona']) {
+            this.setState({
+                persona: this.getPersona(this.props.match.params['persona'])
+            });
+        }
+    }
+
+    getPersona(param) {
         if (param) {
             // There is a persona param in the URL
             let pId = PERSONA_NAMES[decodeURIComponent(param)];
-            persona = PERSONAS[pId];
+            return PERSONAS[pId];
         }
-        this.state = { persona };
     }
 
     render() {

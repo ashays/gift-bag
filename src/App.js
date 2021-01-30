@@ -60,30 +60,28 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Switch>
-          <Route path="/:persona?/:giftid?/">
-            <header>
-              <div className="logo">
-                <Link to="/"><div className="app-name">Pi&ntilde;ata</div></Link>
-                <div className="subtitle">Gift Guide</div>
-              </div>
-              <Persona />
-            </header>
-            <Main openGift={this.openGift} />
-          </Route>
-        </Switch>
-        <Sheet isOpen={this.state.sheetOpen} close={this.closeSheet} color={this.getSheetColor()}>
-          <Switch>
-            <Route path="/gift/:id/">
-              <Gift id={this.state.currentGiftId} index={this.state.giftIndex} expanded={true} closeSheet={this.closeSheet} />
-            </Route>
-            <Route path="/:persona?">
-              <h2>Looking for a gift?</h2>
-              <p>We believe in a better way to find the perfect gift—one that focuses on the humans instead of the products. Explore a curated selection of hand-selected items, each meeting our rigorous standards of a thoughtful gift. We may earn an affiliate commission if you buy something using these links.</p>
-              <div className="button" onClick={this.closeSheet}>Start browsing gifts</div>
-            </Route>  
-          </Switch>
-        </Sheet>
+        <Route path="/:persona?/:giftid?/">
+          <header>
+            <div className="logo">
+              <Link to="/"><div className="app-name">Pi&ntilde;ata</div></Link>
+              <div className="subtitle">Gift Guide</div>
+            </div>
+            <Persona />
+          </header>
+          <Main openGift={this.openGift} />
+          <Sheet isOpen={this.state.sheetOpen} close={this.closeSheet} color={this.getSheetColor()}>
+            <Switch>
+              <Route path="/gift/:id/">
+                <Gift id={this.state.currentGiftId} index={this.state.giftIndex} expanded={true} closeSheet={this.closeSheet} />
+              </Route>
+              <Route path="/:persona?">
+                <h2>Looking for a gift?</h2>
+                <p>We believe in a better way to find the perfect gift—one that focuses on the humans instead of the products. Explore a curated selection of hand-selected items, each meeting our rigorous standards of a thoughtful gift. We may earn an affiliate commission if you buy something using these links.</p>
+                <div className="button" onClick={this.closeSheet}>Start browsing gifts</div>
+              </Route>  
+            </Switch>
+          </Sheet>
+        </Route>
       </Router>
     );
   }
