@@ -1,5 +1,8 @@
-.persona h1 {
+.persona {
     text-align: center;
+}
+
+.persona h1 {
     margin: 40px 0 8px;
     text-transform: capitalize;
 }

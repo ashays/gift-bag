@@ -8,12 +8,31 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.gifts = GIFTS;
-    let persona;
-    if (props.match.params['persona']) {
-        // There is a persona param in the URL
-        let pId = PERSONA_NAMES[decodeURIComponent(props.match.params['persona'])];
-        persona = PERSONAS[pId];
+    let persona = this.getPersona(props.match.params['persona']);
+    this.state = {
+      persona: persona ? true : false,
+      currentGifts: this.getCurrentGits(persona)
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params['persona'] !== prevProps.match.params['persona'] && this.props.match.params['persona'] !== "gift") {
+      let persona = this.getPersona(this.props.match.params['persona']);
+      this.setState({
+        persona: persona ? true : false,
+        currentGifts: this.getCurrentGits(persona)
+      });
     }
+  }
+
+  getPersona(param) {
+    if (param) {
+      let pId = PERSONA_NAMES[decodeURIComponent(param)];
+      return PERSONAS[pId];
+    }
+  }
+
+  getCurrentGits(persona) {
     let currentGifts;
     if (persona) {
       currentGifts = persona.gifts;
@@ -21,10 +40,7 @@ class Main extends React.Component {
     } else {
       currentGifts = this.getRandom(Object.keys(GIFTS), 30);
     }
-    this.state = {
-      persona: persona ? true : false,
-      currentGifts
-    };
+    return currentGifts;
   }
 
   shuffleArray(array) {

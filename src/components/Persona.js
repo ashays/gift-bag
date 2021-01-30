@@ -13,7 +13,7 @@ class Persona extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.match.params['persona'] !== prevProps.match.params['persona']) {
+        if (this.props.match.params['persona'] !== prevProps.match.params['persona'] && this.props.match.params['persona'] !== "gift") {
             this.setState({
                 persona: this.getPersona(this.props.match.params['persona'])
             });
