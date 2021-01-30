@@ -2,8 +2,7 @@ import React from 'react';
 import { withRouter } from "react-router-dom";
 import './Gift.css';
 import Icon from "./Icon";
-import {PERSONAS} from '../data/gifts';
-import {GIFTS} from '../data/gifts';
+import {PERSONAS, GIFTS} from '../data/data';
 
 
 class Gift extends React.Component {

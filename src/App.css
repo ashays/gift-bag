@@ -1,18 +1,8 @@
 header {
-  font-size: 24px;
-  display: flex;
-  font-weight: 900;
-  text-transform: uppercase;
-  padding: 32px;
-  justify-content: space-between;
   background: #EF767A;
   color: #fff;
   position: relative;
-}
-
-header a {
-  text-decoration: none;
-  color: #fff;
+  padding: 32px;
 }
 
 header::after {
@@ -26,6 +16,19 @@ header::after {
   background-image: url("data:image/svg+xml;utf8,<svg width='8' height='9' viewBox='0 0 8 9' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M8 0H0V1L4 9L8 1V0Z' fill='%23333333' fill-opacity='0.25'/><path d='M4 8L8 0H0L4 8Z' fill='%23EF767A'/></svg>");
 }
 
-.subtitle {
+header .logo {
+  font-size: 24px;
+  display: flex;
+  font-weight: 900;
+  text-transform: uppercase;
+  justify-content: space-between;
+}
+
+header .logo a {
+  text-decoration: none;
+  color: #fff;
+}
+
+header .logo .subtitle {
   opacity: .75;
 }

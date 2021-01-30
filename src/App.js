@@ -10,6 +10,7 @@ import './App.css';
 
 import Main from "./components/Main";
 import Gift from "./components/Gift";
+import Persona from "./components/Persona";
 import Sheet from "./components/Sheet";
 
 class App extends React.Component {
@@ -26,6 +27,7 @@ class App extends React.Component {
   componentDidMount() {
     setTimeout( () => {
       this.setState({sheetOpen: true, giftIndex: Math.floor(Math.random()*21)});
+      // giftIndex just to set a random initial sheet color
       document.body.style.overflow = "hidden";
     }, 300);
   }
@@ -38,7 +40,13 @@ class App extends React.Component {
   closeSheet() {
     this.setState({sheetOpen: false});
     document.body.style.overflow = "visible";
-    this.props.history.push('/');
+    if (this.props.location.pathname.substr(0,6) === "/gift/") {
+      // If initial page is a gift, go home
+      this.props.history.push("/");
+    } else {
+      // Otherwise, go back to initial page
+      this.props.history.push(this.props.location.pathname);
+    }
   }
 
   getSheetColor() {
@@ -52,17 +60,24 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <header>
-          <Link to="/"><div className="app-name">Pi&ntilde;ata</div></Link>
-          <div className="subtitle">Gift Guide</div>
-        </header>
-        <Main openGift={this.openGift} />
+        <Switch>
+          <Route path="/:persona?/:giftid?/">
+            <header>
+              <div className="logo">
+                <Link to="/"><div className="app-name">Pi&ntilde;ata</div></Link>
+                <div className="subtitle">Gift Guide</div>
+              </div>
+              <Persona />
+            </header>
+            <Main openGift={this.openGift} />
+          </Route>
+        </Switch>
         <Sheet isOpen={this.state.sheetOpen} close={this.closeSheet} color={this.getSheetColor()}>
           <Switch>
             <Route path="/gift/:id/">
               <Gift id={this.state.currentGiftId} index={this.state.giftIndex} expanded={true} closeSheet={this.closeSheet} />
             </Route>
-            <Route exact path="/">
+            <Route path="/:persona?">
               <h2>Looking for a gift?</h2>
               <p>We believe in a better way to find the perfect gift—one that focuses on the humans instead of the products. Explore a curated selection of hand-selected items, each meeting our rigorous standards of a thoughtful gift. We may earn an affiliate commission if you buy something using these links.</p>
               <div className="button" onClick={this.closeSheet}>Start browsing gifts</div>

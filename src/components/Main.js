@@ -1,8 +1,8 @@
 import React from 'react';
 import './Main.css';
 import Gift from "./Gift";
-import {GIFTS} from '../data/gifts';
-import { Link } from 'react-router-dom';
+import {GIFTS} from '../data/data';
+import { Link, withRouter } from 'react-router-dom';
 
 class Main extends React.Component {
   constructor(props) {
@@ -52,4 +52,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+export default withRouter(Main);

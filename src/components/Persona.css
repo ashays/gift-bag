@@ -1,0 +1,12 @@
+.persona h1 {
+    text-align: center;
+    margin: 40px 0 8px;
+    text-transform: capitalize;
+}
+
+.persona h1::before {
+    content: 'Gifts For the';
+    display: block;
+    font-size: 16px;
+    text-transform: lowercase;
+}
