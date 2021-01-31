@@ -53,6 +53,11 @@
   visibility: hidden;
 }
 
+.drawer .contents {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .button {
   display: block;
   cursor: pointer;

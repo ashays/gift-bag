@@ -9,7 +9,9 @@ class Sheet extends React.Component {
         <style>{customColorStyles}</style>
         <div className="overlay" onClick={this.props.close} />
         <div className="drawer">
-          {this.props.children}
+          <div className="contents">
+            {this.props.children}
+          </div>
         </div>
       </div>
     );
