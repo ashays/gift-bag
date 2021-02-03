@@ -38,7 +38,7 @@ class Main extends React.Component {
       currentGifts = persona.gifts;
       this.shuffleArray(currentGifts);
     } else {
-      currentGifts = this.getRandom(Object.keys(GIFTS), 30);
+      currentGifts = this.getRandom(Object.keys(GIFTS), 32);
     }
     return currentGifts;
   }

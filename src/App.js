@@ -10,6 +10,7 @@ import './App.css';
 
 import Main from "./components/Main";
 import Gift from "./components/Gift";
+import Quiz from "./components/Quiz";
 import Persona from "./components/Persona";
 import Sheet from "./components/Sheet";
 
@@ -75,9 +76,7 @@ class App extends React.Component {
                 <Gift id={this.state.currentGiftId} index={this.state.giftIndex} expanded={true} closeSheet={this.closeSheet} />
               </Route>
               <Route path="/:persona?">
-                <h2>Looking for a gift?</h2>
-                <p>We believe in a better way to find the perfect gift—one that focuses on the humans instead of the products. Explore a curated selection of hand-selected items, each meeting our rigorous standards of a thoughtful gift. We may earn an affiliate commission if you buy something using these links.</p>
-                <div className="button" onClick={this.closeSheet}>Start browsing gifts</div>
+                <Quiz closeSheet={this.closeSheet} />
               </Route>  
             </Switch>
           </Sheet>
