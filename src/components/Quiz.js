@@ -8,6 +8,7 @@ class Quiz extends React.Component {
         this.state = {
             slide: 0,
             name: "",
+            personaOptions: this.getOptions(),
             prices: [
                 { display: 'Less than $20', selected: false, description: 'Something small ($)' },
                 { display: '$20 to $50', selected: false, description: 'Medium ($$)' },
@@ -42,12 +43,9 @@ class Quiz extends React.Component {
 
     getOptions() {
         let personaList = Object.keys(PERSONAS);
-        // this.shuffleArray(personaList);
+        // TODO shuffle with priority to personas with more gifts
+        this.shuffleArray(personaList);
         return personaList
-    }
-
-    getNumPersonasSelected() {
-        return Object.values(this.props.personas).reduce((numSel, selected) => (numSel + (selected ? 1 : 0)), 0);
     }
 
     getNumPricesSelected() {
@@ -70,13 +68,19 @@ class Quiz extends React.Component {
                     </div>
                 );
             case 1:
-                let numPersonasSelected = this.getNumPersonasSelected();
+                let numPersonasSelected = this.props.personas.length;
+                let nextBtn = (<span></span>);
+                if (numPersonasSelected === 1) {
+                    nextBtn = (<div className="button" onClick={this.nextSlide}>Gifts for "The {PERSONAS[this.props.personas[0]].name}"</div>);
+                } else if (numPersonasSelected > 1) {
+                    nextBtn = (<div className="button" onClick={this.nextSlide}>Select {numPersonasSelected}</div>);
+                }
                 return (
                     <div>
                         <h2>Who's the gift for?</h2>
                         <p>Select each that describes the person you're getting the gift for.</p>
                         <div className="shrink">
-                            {this.getOptions().map((personaId, i) => {
+                            {this.state.personaOptions.map((personaId, i) => {
                                 if (PERSONAS[personaId].description) {
                                     return (
                                         <label className="option" key={personaId}>
@@ -90,7 +94,7 @@ class Quiz extends React.Component {
                                 return null
                             })}
                         </div>
-                        {numPersonasSelected ? <div className="button" onClick={this.nextSlide}>Select {numPersonasSelected}</div> : <span></span>}
+                        {nextBtn}
                     </div>
                 );
             case 2:
