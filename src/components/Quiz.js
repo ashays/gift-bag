@@ -1,6 +1,7 @@
 import React from 'react';
 import './Quiz.css';
 import { PERSONAS } from '../data/data';
+import { Link } from 'react-router-dom';
 
 class Quiz extends React.Component {
     constructor(props) {
@@ -56,6 +57,10 @@ class Quiz extends React.Component {
         this.setState({name: e.target.value});
     }
 
+    getPersonaUrl(persona) {
+        return ("/" + encodeURIComponent(persona.trim().replace(/\W+/g, '-').toLowerCase()));
+    }
+
     render() {
         switch (this.state.slide) {
             case 0:
@@ -71,9 +76,10 @@ class Quiz extends React.Component {
                 let numPersonasSelected = this.props.personas.length;
                 let nextBtn = (<span></span>);
                 if (numPersonasSelected === 1) {
-                    nextBtn = (<div className="button" onClick={this.nextSlide}>Gifts for "The {PERSONAS[this.props.personas[0]].name}"</div>);
+                    let personaName = PERSONAS[this.props.personas[0]].name;
+                    nextBtn = (<Link to={this.getPersonaUrl(personaName)} className="button" onClick={this.props.closeSheet}>Gifts for "The {personaName}"</Link>);
                 } else if (numPersonasSelected > 1) {
-                    nextBtn = (<div className="button" onClick={this.nextSlide}>Select {numPersonasSelected}</div>);
+                    nextBtn = (<div className="button" onClick={this.props.closeSheet}>Select {numPersonasSelected}</div>);
                 }
                 return (
                     <div>
@@ -113,14 +119,14 @@ class Quiz extends React.Component {
                                 </label>
                             ))}
                         </div>
-                        {numPricesSelected ? <div className="button" onClick={this.nextSlide}>Next</div> : <span></span>}
+                        {numPricesSelected ? <div className="button" onClick={this.props.closeSheet}>Show me the gifts!</div> : <span></span>}
                     </div>
                 );
             case 3:
                 return (
                     <div>
                         <h2>Give 'em a nickname</h2>
-                        <p>As you browse our curated list of gift ideas, save your favorites and reference them later. No emails required!</p>
+                        <p>As you browse our curated list of gift ideas, save your favorites and reference them later. No email required!</p>
                         <input placeholder="Nickname" type="text" value={this.state.name} onChange={this.updateName} />
                         {this.state.name !== "" ? <div className="button" onClick={this.props.closeSheet}>Show me the gifts!</div> : <span></span>}
                     </div>
