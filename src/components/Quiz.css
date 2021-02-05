@@ -69,3 +69,7 @@ input[type="text"] {
     color: #fff;
     font: inherit;
 }
+
+input[type="text"]::placeholder {
+    color: rgb(255 255 255 / .5);
+}

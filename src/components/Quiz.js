@@ -2,14 +2,12 @@ import React from 'react';
 import './Quiz.css';
 import { PERSONAS } from '../data/data';
 
-
 class Quiz extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             slide: 0,
             name: "",
-            personas: PERSONAS,
             prices: [
                 { display: 'Less than $20', selected: false, description: 'Something small ($)' },
                 { display: '$20 to $50', selected: false, description: 'Medium ($$)' },
@@ -18,22 +16,12 @@ class Quiz extends React.Component {
             ]
         };        
         this.nextSlide = this.nextSlide.bind(this);
-        this.selectPersona = this.selectPersona.bind(this);
         this.selectPrice = this.selectPrice.bind(this);
         this.updateName = this.updateName.bind(this);
     }
 
     nextSlide() {
         this.setState(prevState => ({ slide: prevState.slide + 1 }));
-    }
-
-    selectPersona(e) {
-        let id = e.target.dataset.id;
-        let checked = e.target.checked;
-        this.setState(prevState => {
-            prevState.personas[id].selected = checked;
-            return {personas: prevState.personas};
-        });
     }
 
     selectPrice(e) {
@@ -53,13 +41,13 @@ class Quiz extends React.Component {
     }
 
     getOptions() {
-        let personaList = Object.keys(this.state.personas);
+        let personaList = Object.keys(PERSONAS);
         // this.shuffleArray(personaList);
         return personaList
     }
 
     getNumPersonasSelected() {
-        return Object.values(this.state.personas).reduce((numSel, {selected}) => (numSel + (selected ? 1 : 0)), 0);
+        return Object.values(this.props.personas).reduce((numSel, selected) => (numSel + (selected ? 1 : 0)), 0);
     }
 
     getNumPricesSelected() {
@@ -92,7 +80,7 @@ class Quiz extends React.Component {
                                 if (PERSONAS[personaId].description) {
                                     return (
                                         <label className="option" key={personaId}>
-                                            <input type="checkbox" data-id={personaId} checked={this.state.personas[personaId].selected} onChange={this.selectPersona} />
+                                            <input type="checkbox" data-id={personaId} checked={this.props.personas.indexOf(personaId) > -1} onChange={this.props.selectPersona} />
                                             <span className="checkmark"></span>
                                             <strong>The {PERSONAS[personaId].name}</strong>
                                             {PERSONAS[personaId].description}

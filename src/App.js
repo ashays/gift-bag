@@ -19,10 +19,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       sheetOpen: false,
+      personas: [],
       currentGiftId: undefined
     };
     this.openGift = this.openGift.bind(this);
     this.closeSheet = this.closeSheet.bind(this);
+    this.selectPersona = this.selectPersona.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +60,25 @@ class App extends React.Component {
     return colors[Math.floor(Math.random()*colors.length)];
   }
 
+  selectPersona(e) {
+    let id = e.target.dataset.id;
+    let checked = e.target.checked;
+    this.setState(prevState => {
+      let personas = prevState.personas;
+      let idIndex = prevState.personas.indexOf(id);
+      if (!checked && idIndex > -1) {
+        // Not selected but in selected array
+        prevState.personas.splice(idIndex, 1);
+        personas = [...prevState.personas];
+      } else if (checked && idIndex === -1) {
+        // Selected but not in selected array
+        prevState.personas.push(id);
+        personas = [...prevState.personas];
+      }
+      return {personas};
+    });
+  }
+
   render() {
     return (
       <Router>
@@ -69,14 +90,19 @@ class App extends React.Component {
             </div>
             <Persona />
           </header>
-          <Main openGift={this.openGift} />
+          <Main openGift={this.openGift} personas={this.state.personas} />
           <Sheet isOpen={this.state.sheetOpen} close={this.closeSheet} color={this.getSheetColor()}>
             <Switch>
               <Route path="/gift/:id/">
                 <Gift id={this.state.currentGiftId} index={this.state.giftIndex} expanded={true} closeSheet={this.closeSheet} />
               </Route>
-              <Route path="/:persona?">
-                <Quiz closeSheet={this.closeSheet} />
+              <Route path="/:persona">
+                <h2>Looking for a gift?</h2>
+                <p>We believe in a better way to find the perfect gift—one that focuses on the humans instead of the products. Explore our curated selection of hand-selected items from our favorite brands. We may earn an affiliate commission if you buy something using these links.</p>
+                <div className="button" onClick={this.closeSheet}>Start browsing gifts</div>
+              </Route>  
+              <Route path="/">
+                <Quiz closeSheet={this.closeSheet} personas={this.state.personas} selectPersona={this.selectPersona} />
               </Route>  
             </Switch>
           </Sheet>
