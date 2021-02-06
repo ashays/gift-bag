@@ -20,29 +20,31 @@ class App extends React.Component {
     this.state = {
       sheetOpen: false,
       personas: [],
-      currentGiftId: undefined
+      currentGiftId: undefined,
+      giftIndex: Math.floor(Math.random()*21)
     };
-    this.openGift = this.openGift.bind(this);
+    this.openSheet = this.openSheet.bind(this);
     this.closeSheet = this.closeSheet.bind(this);
+    this.openGift = this.openGift.bind(this);
     this.selectPersona = this.selectPersona.bind(this);
   }
 
   componentDidMount() {
     setTimeout( () => {
-      this.setState({sheetOpen: true, giftIndex: Math.floor(Math.random()*21)});
-      // giftIndex just to set a random initial sheet color
-      document.body.style.overflow = "hidden";
+      this.openSheet();
+      document.body.style.position = "fixed";
     }, 300);
   }
 
-  openGift(id, giftIndex, e) {
-    this.setState({sheetOpen: true, currentGiftId: id, giftIndex});
+  openSheet() {
+    this.setState({ sheetOpen: true });
     document.body.style.overflow = "hidden";
   }
 
   closeSheet() {
     this.setState({sheetOpen: false});
     document.body.style.overflow = "visible";
+    document.body.style.position = "initial";
     if (this.props.location.pathname.substr(0,6) === "/gift/") {
       // If initial page is a gift, go home
       this.props.history.push("/");
@@ -50,6 +52,11 @@ class App extends React.Component {
       // Otherwise, go back to initial page
       this.props.history.push(this.props.location.pathname);
     }
+  }
+
+  openGift(id, giftIndex, e) {
+    this.openSheet();
+    this.setState({currentGiftId: id, giftIndex});
   }
 
   getSheetColor() {
@@ -85,7 +92,7 @@ class App extends React.Component {
         <Route path="/:persona?/:giftid?/">
           <header>
             <div className="logo">
-              <Link to="/"><div className="app-name">Pi&ntilde;ata</div></Link>
+              <Link to="/" onClick={this.openSheet}><div className="app-name">Pi&ntilde;ata</div></Link>
               <div className="subtitle">Gift Guide</div>
             </div>
             <Persona />
