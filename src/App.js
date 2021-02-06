@@ -20,6 +20,8 @@ class App extends React.Component {
     this.state = {
       sheetOpen: false,
       personas: [],
+      prices: {'$': true, '$$': true, '$$$': true, '$$$$': true},
+      recipientName: "",
       currentGiftId: undefined,
       giftIndex: Math.floor(Math.random()*21)
     };
@@ -27,6 +29,7 @@ class App extends React.Component {
     this.closeSheet = this.closeSheet.bind(this);
     this.openGift = this.openGift.bind(this);
     this.selectPersona = this.selectPersona.bind(this);
+    this.selectPrice = this.selectPrice.bind(this);
   }
 
   componentDidMount() {
@@ -86,6 +89,15 @@ class App extends React.Component {
     });
   }
 
+  selectPrice(e) {
+    let id = e.target.dataset.id;
+    let checked = e.target.checked;
+    this.setState(prevState => {
+        prevState.prices[id] = checked;
+        return {prices: {...prevState.prices}};
+    });
+  }
+
   render() {
     return (
       <Router>
@@ -97,7 +109,7 @@ class App extends React.Component {
             </div>
             <Persona />
           </header>
-          <Main openGift={this.openGift} personas={this.state.personas} />
+          <Main openGift={this.openGift} personas={this.state.personas} prices={this.state.prices} />
           <Sheet isOpen={this.state.sheetOpen} close={this.closeSheet} color={this.getSheetColor()}>
             <Switch>
               <Route path="/gift/:id/">
@@ -109,7 +121,7 @@ class App extends React.Component {
                 <div className="button" onClick={this.closeSheet}>Start browsing gifts</div>
               </Route>  
               <Route path="/">
-                <Quiz closeSheet={this.closeSheet} personas={this.state.personas} selectPersona={this.selectPersona} />
+                <Quiz closeSheet={this.closeSheet} personas={this.state.personas} selectPersona={this.selectPersona} prices={this.state.prices} selectPrice={this.selectPrice} />
               </Route>  
             </Switch>
           </Sheet>

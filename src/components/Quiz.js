@@ -10,29 +10,20 @@ class Quiz extends React.Component {
             slide: 0,
             name: "",
             personaOptions: this.getOptions(),
-            prices: [
-                { display: 'Less than $20', selected: false, description: 'Something small ($)' },
-                { display: '$20 to $50', selected: false, description: 'Medium ($$)' },
-                { display: '$50 to $100', selected: false, description: 'High ($$$)' },
-                { display: '$100+', selected: false, description: 'Splurge ($$$$)' }
+            priceOptions: [
+                { display: 'Less than $20', selected: false, description: 'Something small ($)', 'id': '$' },
+                { display: '$20 to $50', selected: false, description: 'Medium ($$)', 'id': '$$' },
+                { display: '$50 to $100', selected: false, description: 'High ($$$)', 'id': '$$$' },
+                { display: '$100+', selected: false, description: 'Splurge ($$$$)', 'id': '$$$$' }
             ]
-        };        
+        };
         this.nextSlide = this.nextSlide.bind(this);
-        this.selectPrice = this.selectPrice.bind(this);
+        this.closeSheet = this.closeSheet.bind(this);
         this.updateName = this.updateName.bind(this);
     }
 
     nextSlide() {
         this.setState(prevState => ({ slide: prevState.slide + 1 }));
-    }
-
-    selectPrice(e) {
-        let id = e.target.dataset.id;
-        let checked = e.target.checked;
-        this.setState(prevState => {
-            prevState.prices[id].selected = checked;
-            return {prices: prevState.prices};
-        });
     }
 
     shuffleArray(array) {
@@ -50,7 +41,7 @@ class Quiz extends React.Component {
     }
 
     getNumPricesSelected() {
-        return this.state.prices.reduce((numSel, {selected}) => (numSel + (selected ? 1 : 0)), 0);
+        return Object.values(this.props.prices).reduce((numSel, selected) => (numSel + (selected ? 1 : 0)), 0);
     }
 
     updateName(e) {
@@ -61,7 +52,14 @@ class Quiz extends React.Component {
         return ("/" + encodeURIComponent(persona.trim().replace(/\W+/g, '-').toLowerCase()));
     }
 
+    closeSheet() {
+        this.setState({ slide: 1 });
+        this.props.closeSheet();
+    }
+
     render() {
+        let numPersonasSelected = this.props.personas.length;
+        let nextBtn = (<span></span>);
         switch (this.state.slide) {
             case 0:
                 return (
@@ -69,17 +67,15 @@ class Quiz extends React.Component {
                         <h2>Looking for a gift?</h2>
                         <p>We believe in a better way to find the perfect gift—one that focuses on the humans instead of the products. Tell us about who you're getting a gift for, and we'll help you find something they'll love. Or, jump straight in and explore our curated selection of hand-selected items from our favorite brands. We may earn an affiliate commission if you buy something using these links.</p>
                         <div className="button" onClick={this.nextSlide}>Take the quiz</div>
-                        <div className="button ghost" onClick={this.props.closeSheet}>or, <span className="pseudolink">start browsing gifts</span></div>
+                        <div className="button ghost" onClick={this.closeSheet}>or, <span className="pseudolink">start browsing gifts</span></div>
                     </div>
                 );
             case 1:
-                let numPersonasSelected = this.props.personas.length;
-                let nextBtn = (<span></span>);
                 if (numPersonasSelected === 1) {
                     let personaName = PERSONAS[this.props.personas[0]].name;
-                    nextBtn = (<Link to={this.getPersonaUrl(personaName)} className="button" onClick={this.props.closeSheet}>Gifts for "The {personaName}"</Link>);
+                    nextBtn = (<div className="button" onClick={this.nextSlide}>Gifts for "The {personaName}"</div>);
                 } else if (numPersonasSelected > 1) {
-                    nextBtn = (<div className="button" onClick={this.props.closeSheet}>Select {numPersonasSelected}</div>);
+                    nextBtn = (<div className="button" onClick={this.nextSlide}>Select {numPersonasSelected}</div>);
                 }
                 return (
                     <div>
@@ -104,22 +100,29 @@ class Quiz extends React.Component {
                     </div>
                 );
             case 2:
-                let numPricesSelected = this.getNumPricesSelected();
+                numPersonasSelected = this.props.personas.length;
+                nextBtn = (<span></span>);
+                if (numPersonasSelected === 1) {
+                    let personaName = PERSONAS[this.props.personas[0]].name;
+                    nextBtn = (<Link to={this.getPersonaUrl(personaName)} className="button" onClick={this.closeSheet}>Show me the gifts!</Link>);
+                } else if (numPersonasSelected > 1) {
+                    nextBtn = (<div className="button" onClick={this.closeSheet}>Show me the gifts!</div>);
+                }
                 return (
                     <div>
                         <h2>What's the budget?</h2>
                         <p>Gifts should feel luxurious at every price bucket, which is why all our gift ideas are at the top of their class.</p>
                         <div className="shrink">
-                            {this.state.prices.map((price, i) => (
-                                <label className="option" key={i}>
-                                    <input type="checkbox" data-id={i} checked={this.state.prices[i].selected} onChange={this.selectPrice} />
+                            {this.state.priceOptions.map((price) => (
+                                <label className="option" key={price.id}>
+                                    <input type="checkbox" data-id={price.id} checked={this.props.prices[price.id]} onChange={this.props.selectPrice} />
                                     <span className="checkmark"></span>
                                     <strong>{price.display}</strong>
                                     {price.description}
                                 </label>
                             ))}
                         </div>
-                        {numPricesSelected ? <div className="button" onClick={this.props.closeSheet}>Show me the gifts!</div> : <span></span>}
+                        {nextBtn}
                     </div>
                 );
             case 3:
@@ -128,7 +131,7 @@ class Quiz extends React.Component {
                         <h2>Give 'em a nickname</h2>
                         <p>As you browse our curated list of gift ideas, save your favorites and reference them later. No email required!</p>
                         <input placeholder="Nickname" type="text" value={this.state.name} onChange={this.updateName} />
-                        {this.state.name !== "" ? <div className="button" onClick={this.props.closeSheet}>Show me the gifts!</div> : <span></span>}
+                        {this.state.name !== "" ? <div className="button" onClick={this.closeSheet}>Show me the gifts!</div> : <span></span>}
                     </div>
                 );
             default:

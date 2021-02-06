@@ -16,7 +16,7 @@ class Main extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personas !== prevProps.personas || (this.props.match.params['persona'] !== prevProps.match.params['persona'] && this.props.match.params['persona'] !== "gift")) {
+    if (this.props.personas !== prevProps.personas || this.props.prices !== prevProps.prices || (this.props.match.params['persona'] !== prevProps.match.params['persona'] && this.props.match.params['persona'] !== "gift")) {
       let persona = this.getPersona(this.props.match.params['persona']);
       this.setState({
         persona: persona ? true : false,
@@ -34,8 +34,20 @@ class Main extends React.Component {
 
   getCurrentGits(persona) {
     let currentGifts = [];
+    let pricesSelected = false;
+    if (Object.values(this.props.prices).reduce((numSel, selected) => (numSel + (selected ? 1 : 0)), 0) < 4) {
+      pricesSelected = true;
+    }
     if (persona) {
-      currentGifts = persona.gifts;
+      if (!pricesSelected) {
+        currentGifts = persona.gifts;
+      } else {
+        persona.gifts.forEach((gId) => {
+          if (this.props.prices[GIFTS[gId].price]) {
+            currentGifts.push(gId);
+          }
+        });
+      }
       this.shuffleArray(currentGifts);
     } else if (this.props.personas.length) {
       // If any selected personas
@@ -44,7 +56,7 @@ class Main extends React.Component {
         PERSONAS[pId].gifts.forEach((gId) => {
           if (giftCount.hasOwnProperty(gId)) {
             giftCount[gId]++;
-          } else {
+          } else if (!pricesSelected || this.props.prices[GIFTS[gId].price]) {
             giftCount[gId] = 1;
             currentGifts.push(gId);
           }
