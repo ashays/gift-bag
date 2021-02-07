@@ -57,6 +57,16 @@ class Gift extends React.Component {
 
     checkingItOut() {
         this.setState({ visited: true });
+        // Google analytics
+        window.gtag('event', 'view_item', {
+            items: [{
+                item_id: this.props.id,
+                item_name: this.state.gift.name,
+                item_brand: this.state.gift.brand,
+                item_category: this.state.gift.category,
+                price: this.state.gift.price.length
+            }]
+        });
     }
 
     getPersonaUrl(persona) {
@@ -65,7 +75,14 @@ class Gift extends React.Component {
 
     openPersonaPage() {
         window.scrollTo(0, 0);
-        this.props.closeSheet();
+        this.props.closeSheet(false);
+        let title = "Gifts for the " + this.state.persona + " / Piñata Gifts";
+        document.title = title;
+        // Google analytics
+        window.gtag('config', window.googleTrackingId, {
+            page_title: title,
+            page_path: this.getPersonaUrl(this.state.persona)
+        });
     }
 
     getPersonaElement() {

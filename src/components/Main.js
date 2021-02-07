@@ -7,12 +7,13 @@ import { Link, withRouter } from 'react-router-dom';
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.gifts = GIFTS;
+    this.GIFTS = GIFTS;
     let persona = this.getPersona(props.match.params['persona']);
     this.state = {
       persona: persona ? true : false,
       currentGifts: this.getCurrentGits(persona)
     };
+    this.openGift = this.openGift.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -43,7 +44,7 @@ class Main extends React.Component {
         currentGifts = persona.gifts;
       } else {
         persona.gifts.forEach((gId) => {
-          if (this.props.prices[GIFTS[gId].price]) {
+          if (this.props.prices[this.GIFTS[gId].price]) {
             currentGifts.push(gId);
           }
         });
@@ -56,7 +57,7 @@ class Main extends React.Component {
         PERSONAS[pId].gifts.forEach((gId) => {
           if (giftCount.hasOwnProperty(gId)) {
             giftCount[gId]++;
-          } else if (!pricesSelected || this.props.prices[GIFTS[gId].price]) {
+          } else if (!pricesSelected || this.props.prices[this.GIFTS[gId].price]) {
             giftCount[gId] = 1;
             currentGifts.push(gId);
           }
@@ -65,7 +66,7 @@ class Main extends React.Component {
       this.shuffleArray(currentGifts);
       currentGifts.sort((a, b) => (giftCount[b] - giftCount[a]))
     } else {
-      currentGifts = this.getRandom(Object.keys(GIFTS), 32);
+      currentGifts = this.getRandom(Object.keys(this.GIFTS), 32);
     }
     return currentGifts;
   }
@@ -96,12 +97,40 @@ class Main extends React.Component {
     return ("/gift/" + id + "/" + encodeURIComponent(name.trim().replace(/\W+/g, '-').toLowerCase()));
   }
 
+  openGift(giftId, i) {
+    this.props.openGift(giftId, i);
+    // Google analytics
+    let gift = this.GIFTS[giftId];
+    let listName = "Landing";
+    if (this.props.personas.length) {
+      listName = "Custom (Quiz)";
+    } else if (this.state.persona) {
+      listName = "Persona";
+    }
+    window.gtag('event', 'select_item', {
+      item_list_name: listName,
+      items: [{
+          item_id: giftId,
+          item_name: gift.name,
+          item_brand: gift.brand,
+          item_category: gift.category,
+          price: gift.price.length
+      }]
+    });
+    let title = gift.name + " / Piñata Gifts";
+    document.title = title;
+    window.gtag('config', window.googleTrackingId, {
+      page_title: title,
+      page_path: this.getGiftURL(giftId, gift.name)
+    });
+  }
+
   render() {
     return (
       <main>
         {this.state.currentGifts.map((giftId, i) => {
           return (
-            <Link className="block" onClick={this.props.openGift.bind(this, giftId, i)} to={this.getGiftURL(giftId, this.gifts[giftId].name)} key={giftId}>
+            <Link className="block" onClick={this.openGift.bind(this, giftId, i)} to={this.getGiftURL(giftId, this.GIFTS[giftId].name)} key={giftId}>
               <Gift id={giftId} index={i} hidePersona={this.state.persona} />
             </Link>
           );

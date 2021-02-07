@@ -53,6 +53,32 @@ class Quiz extends React.Component {
     }
 
     closeSheet() {
+        // Google Analytics
+        let numPersonasSelected = this.props.personas.length;
+        if (numPersonasSelected > 0) {
+            // Any filters selected
+            let personas = [];
+            this.props.personas.forEach((pId) => {
+                personas.push(PERSONAS[pId].name);
+            })
+            let prices = [];
+            Object.entries(this.props.prices).forEach(([price, selected]) => {
+                if (selected) {
+                    prices.push(price);
+                }
+            });
+            window.gtag('event', 'take_quiz', { personas, prices });
+        }
+        if (numPersonasSelected === 1) {
+            let personaName = PERSONAS[this.props.personas[0]].name;
+            // Going to Persona Page
+            let title = "Gifts for the " + personaName + " / Piñata Gifts";
+            document.title = title;
+            window.gtag('config', window.googleTrackingId, {
+                page_title: title,
+                page_path: this.getPersonaUrl(personaName)
+            });
+        }
         this.setState({ slide: 1 });
         this.props.closeSheet();
     }
