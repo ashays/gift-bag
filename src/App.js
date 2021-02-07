@@ -37,6 +37,7 @@ class App extends React.Component {
       this.openSheet();
       document.body.style.position = "fixed";
     }, 300);
+    // TODO initial page title based on path
   }
 
   openSheet() {
@@ -51,10 +52,8 @@ class App extends React.Component {
     if (this.props.location.pathname.substr(0,6) === "/gift/") {
       // If initial page is a gift, go home
       this.props.history.push("/");
-    } else {
-      // Otherwise, go back to initial page
-      this.props.history.push(this.props.location.pathname);
     }
+    // TODO updating page path and title (and Google Analytics)
   }
 
   openGift(id, giftIndex, e) {
